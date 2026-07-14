@@ -13,7 +13,7 @@ The edge architecture is selected for batch-one CPU latency, bounded state, quan
 
 ## 2. End-to-end data flow
 
-![Ripple-VC Edge streaming STS architecture](assets/ripple-vc-edge-architecture.png)
+![Ripple-VC Edge streaming STS architecture](/assets/architecture.png)
 
 ```text
 Target reference (once or infrequently)
