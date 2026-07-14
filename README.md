@@ -18,6 +18,12 @@ replacing the decoder. STS training does **not** require TTS.
 Architecture intent and benchmarks live in [`docs/`](docs/README.md). Implementation roadmap:
 [`docs/09-implementation-roadmap.md`](docs/09-implementation-roadmap.md).
 
+## Architecture
+
+![Ripple-VC Edge streaming STS architecture](docs/assets/ripple-vc-edge-architecture.png)
+
+Causal 20 ms STS: enroll a target once, stream source through analysis / mixer / prosody into the **RIF-1** latent contract, then a causal source-filter decoder. Teachers are train-only and never exported. Full write-up: [`docs/03-ripple-architecture.md`](docs/03-ripple-architecture.md).
+
 ## Why Ripple
 
 | Choice | Intent |
