@@ -55,6 +55,10 @@ ripple --help
 
 ## Licensing
 
-No open-source license has been granted yet. Package metadata is proprietary until a license
-is selected. Dataset and model licenses are tracked independently in manifests.
+This project is licensed under [Creative Commons Attribution 4.0 International
+(CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/). See [LICENSE](LICENSE)
+for the full text.
+
+Dataset corpora and trained model weights are licensed separately and are tracked in
+dataset/model cards and manifests.
 

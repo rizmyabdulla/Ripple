@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "Streaming speech-to-speech voice conversion model family with RIF-1 TTS extensibility."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
-license = { text = "Proprietary" }
+license = { text = "CC-BY-4.0" }
 authors = [{ name = "Ripple contributors" }]
 classifiers = [
   "Development Status :: 2 - Pre-Alpha",
@@ -96,6 +96,7 @@ include = [
   "/src",
   "/tests",
   "/README.md",
+  "/LICENSE",
   "/pyproject.toml",
 ]
 
