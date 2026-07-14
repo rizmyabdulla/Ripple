@@ -1,4 +1,4 @@
-# Dataset card: <name and version>
+# Dataset card: 
 
 ## Identity
 
