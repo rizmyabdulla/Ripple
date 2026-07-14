@@ -27,7 +27,7 @@ Thumbs.db
 *.safetensors
 checkpoints/
 artifacts/
-data/
+/data/
 wandb/
 mlruns/
 *.log

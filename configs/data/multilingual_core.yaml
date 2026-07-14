@@ -1,0 +1,15 @@
+manifest_uri: fixtures/multilingual-core/manifests/train.json
+canonical_sample_rate: 24000
+channels: 1
+verify_checksums: true
+require_consent: true
+seed: 17
+languages:
+  - en-US
+  - es-ES
+  - fr-FR
+  - de-DE
+  - hi-IN
+  - ja-JP
+development_manifest_uri: fixtures/multilingual-core/manifests/development.json
+test_manifest_uri: fixtures/multilingual-core/manifests/test.json
