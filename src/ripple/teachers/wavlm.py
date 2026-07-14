@@ -13,10 +13,9 @@ class WavLMTeacher(LazyTeacherAdapter):
     name = "wavlm"
 
     def _load_backend(self) -> Any:
+        path = str(self._require_local_path())
         transformers = import_transformers()
-        return transformers.AutoModel.from_pretrained(
-            str(self._require_local_path()), local_files_only=True
-        )
+        return transformers.AutoModel.from_pretrained(path, local_files_only=True)
 
     def _forward(self, backend: Any, waveform: Tensor) -> Tensor:
         output = backend(

@@ -13,8 +13,8 @@ class WhisperTeacher(LazyTeacherAdapter):
     name = "whisper"
 
     def _load_backend(self) -> Any:
-        transformers = import_transformers()
         path = str(self._require_local_path())
+        transformers = import_transformers()
         extractor = transformers.AutoFeatureExtractor.from_pretrained(
             path, local_files_only=True
         )
