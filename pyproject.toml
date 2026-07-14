@@ -50,7 +50,7 @@ dev = [
   "mypy>=1.14,<3",
   "pytest>=8.3,<10",
   "pytest-cov>=6,<8",
-  "ruff>=0.9,<1",
+  "ruff>=0.14,<0.16",
   "types-PyYAML>=6.0.12,<7",
 ]
 train = [
@@ -72,7 +72,7 @@ all = [
   "pytest>=8.3,<10",
   "pytest-cov>=6,<8",
   "PyYAML>=6.0.2,<7",
-  "ruff>=0.9,<1",
+  "ruff>=0.14,<0.16",
   "safetensors>=0.5,<1",
   "soundfile>=0.13,<1",
   "soxr>=0.5,<1",
@@ -116,10 +116,13 @@ skip_covered = true
 [tool.ruff]
 target-version = "py312"
 line-length = 100
-src = ["src", "tests"]
+src = ["src"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "C4", "SIM", "RUF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["ripple"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**/*.py" = ["S101"]

@@ -28,7 +28,9 @@ jobs:
           python -m pip install torch --index-url https://download.pytorch.org/whl/cpu
           python -m pip install -e ".[dev,export,data]"
       - name: Lint
-        run: python -m ruff check src tests
+        run: |
+          python -m ruff --version
+          python -m ruff check src tests
       - name: Type-check core contracts
         run: >-
           python -m mypy --follow-imports=skip --ignore-missing-imports
