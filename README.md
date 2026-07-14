@@ -160,8 +160,13 @@ Entry point: `ripple` (see `src/ripple/cli/`).
 
 ```powershell
 ripple --help
-ripple manifest --help
-ripple features --help
+ripple doctor run
+ripple config show
+ripple data canonicalize --help
+ripple manifest build|seal|validate --help
+ripple features extract --help
+ripple train stages|run|resume --help
+ripple eval run --help
 ripple enroll --help
 ripple convert --help
 ripple stream --help
@@ -171,27 +176,39 @@ ripple benchmark --help
 
 | Command | Purpose |
 |---|---|
-| `manifest` | Build checksummed JSONL/JSON dataset manifests from WAV trees |
-| `features` | Extract **local-only** teacher features for a manifest |
+| `doctor` | Check Python/torch/CUDA, config load, write access to data/checkpoints |
+| `config` | Show resolved config or print its checksum |
+| `data canonicalize` | Resample/mono/PCM16 24 kHz WAV trees with provenance |
+| `data summarize` | Hours/speakers/languages from a sealed manifest |
+| `manifest build` | Draft checksummed JSONL discovery manifests from WAV trees |
+| `manifest seal` | Seal draft JSONL into `DatasetManifest` contracts (speaker-disjoint splits) |
+| `manifest validate` | Load sealed manifests; optional audio checksum verify |
+| `features extract` | Extract **local-only** teacher features; write `FeatureManifest` |
+| `train stages` | List `TrainingStage` loss weights / module gates |
+| `train run` / `resume` | Single-process STS stage training over sealed manifests |
+| `eval run` | Reconstruction metrics over a checkpoint + sealed test manifest |
 | `enroll` | Create a consent-bound speaker profile |
 | `convert` / `stream` | File or chunked conversion through an installed backend |
 | `export` | Export and checksum a model artifact |
 | `benchmark` | Synthetic streaming-step latency smoke on CPU |
 
-Thin scripts under `tools/` call the same CLIs.
-
-There is not yet a first-class `ripple train` command; use `src/ripple/training` (Trainer, stages, losses, checkpoints) from a train script or notebook. Wiring an STS train entrypoint is the next implementation step after data ingest.
+Thin scripts under `tools/` call the same CLIs. Training is single-process in v1 (no DDP/`torchrun` yet).
 
 ## Suggested STS (voice conversion) workflow
 
 Skip Phase 9 (TTS) if you only want speech→speech.
 
-1. **Env** — install `.[dev,train,teachers,eval]` on a clean 3.12 venv / rented GPU box.
-2. **Data** — start with an English pilot (e.g. LibriTTS), then expand per the dataset card; keep originals under `/data/raw/`.
-3. **Manifests** — `ripple manifest` with license + consent fields; enforce speaker-disjoint splits.
-4. **Teachers** — place HuBERT / WavLM / XLS-R weights **locally**; `ripple features` (no automatic download).
-5. **Train** — baseline (`baselines`) then Ripple stages: semantic → speaker → reconstruction → any-to-any → streaming (`training/stages.py`).
-6. **Eval** — intelligibility, speaker similarity, F0, full vs streamed, CPU RTF (`evaluation/`, `benchmark/`).
+```text
+raw WAVs → ripple data canonicalize → ripple manifest build → seal
+  → ripple features extract → ripple train run → ripple eval run → export
+```
+
+1. **Env** — install `.[dev,train,teachers,eval]` on a clean 3.12 venv / rented GPU box; run `ripple doctor`.
+2. **Data** — start with an English pilot (e.g. LibriTTS), keep originals under `/data/raw/`, canonicalize to `/data/canonical/`.
+3. **Manifests** — `ripple manifest build` (JSONL) then `seal` / `validate` with license + consent; speaker-disjoint splits are enforced at seal.
+4. **Teachers** — place HuBERT / WavLM / XLS-R weights **locally**; `ripple features extract` (no automatic download).
+5. **Train** — e.g. `ripple train run --stage decoder_reconstruction ...` then `semantic_student` (needs features); further stages land as hooks on existing losses.
+6. **Eval** — `ripple eval run --checkpoint ... --manifest test.json`; ASR WER needs the `eval` extra.
 7. **Export** — fixed-state ONNX + artifact bundle (`export/`, optional `runtime/`).
 
 Rough compute: English pilot listen-able checkpoint often **~2–4 weeks** on one A100/4090 including engineering; full 1000+ h multilingual STS is typically **months** on one GPU unless you multi-GPU.

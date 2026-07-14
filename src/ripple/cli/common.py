@@ -14,7 +14,50 @@ import torch
 import typer
 from torch import Tensor
 
+from ripple.contracts.config import ResolvedConfig, load_config
 from ripple.safety import ConsentRecord, ProfileUse, parse_allowed_uses
+
+PROJECT_ROOT = Path(__file__).resolve().parents[3]
+
+
+def load_resolved_config(config_root: Path | str | None = None) -> ResolvedConfig:
+    root = Path(config_root) if config_root is not None else PROJECT_ROOT / "configs"
+    if not root.is_dir():
+        raise typer.BadParameter(f"config root not found: {root}")
+    try:
+        return load_config(root)
+    except Exception as exc:
+        raise typer.BadParameter(f"failed to load config from {root}: {exc}") from exc
+
+
+def ensure_directory(path: Path, *, writable: bool = False) -> Path:
+    path.mkdir(parents=True, exist_ok=True)
+    if writable:
+        probe = path / ".ripple_write_probe"
+        try:
+            probe.write_text("ok", encoding="utf-8")
+            probe.unlink(missing_ok=True)
+        except OSError as exc:
+            raise typer.BadParameter(f"directory is not writable: {path}") from exc
+    return path
+
+
+def echo_json(value: Any) -> None:
+    typer.echo(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True, default=str))
+
+
+def set_seed(seed: int) -> None:
+    if seed < 0:
+        raise typer.BadParameter("seed must be non-negative")
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed_all(seed)
+
+
+def resolve_device(device: str) -> torch.device:
+    if device == "cuda" and not torch.cuda.is_available():
+        raise typer.BadParameter("CUDA requested but torch.cuda.is_available() is False")
+    return torch.device(device)
 
 
 def load_object(spec: str) -> Any:
