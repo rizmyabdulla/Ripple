@@ -32,8 +32,6 @@ jobs:
           python -m ruff --version
           python -m ruff check src tests
       - name: Type-check core contracts
-        run: >-
-          python -m mypy --follow-imports=skip --ignore-missing-imports
-          src/ripple/contracts src/ripple/research
+        run: python -m mypy -p ripple.contracts -p ripple.research
       - name: Run CPU suite
         run: python -m pytest tests/unit tests/integration tests/streaming tests/export tests/quantization tests/regression -q
