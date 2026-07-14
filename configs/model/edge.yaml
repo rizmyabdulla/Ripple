@@ -1,0 +1,10 @@
+sample_rate: 24000
+frame_samples: 480
+semantic_classes: 256
+semantic_embed_dim: 128
+analysis_strides: [3, 4, 5, 8]
+speaker_global_dim: 192
+speaker_token_count: 4
+speaker_token_dim: 64
+lookahead_frames: 0
+

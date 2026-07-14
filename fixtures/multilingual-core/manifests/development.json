@@ -1,0 +1,183 @@
+{
+  "schema_version": "ripple-dataset-1",
+  "dataset_id": "multilingual-core-fixture",
+  "revision": "2026-07-14",
+  "records": [
+    {
+      "record_id": "development-en-US-0",
+      "uri": "fixtures://multilingual-core/development-en-US-0.wav",
+      "checksum": "sha256:e65ef1f6599e577c2583f8c205c759ed41a759820c2c75a8893c8833df94c325",
+      "speaker_id": "spk-en-US-100",
+      "language": "en-US",
+      "split": "development",
+      "duration_seconds": 1.0,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-en-US-100/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/development-en-US-0",
+        "source_checksum": "sha256:e65ef1f6599e577c2583f8c205c759ed41a759820c2c75a8893c8833df94c325",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "development-es-ES-1",
+      "uri": "fixtures://multilingual-core/development-es-ES-1.wav",
+      "checksum": "sha256:d68064a821f231dec114956e0ed28207a4f629b07e8931dcc7ab906659c1ecd2",
+      "speaker_id": "spk-es-ES-100",
+      "language": "es-ES",
+      "split": "development",
+      "duration_seconds": 1.1,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-es-ES-100/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/development-es-ES-1",
+        "source_checksum": "sha256:d68064a821f231dec114956e0ed28207a4f629b07e8931dcc7ab906659c1ecd2",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "development-fr-FR-2",
+      "uri": "fixtures://multilingual-core/development-fr-FR-2.wav",
+      "checksum": "sha256:906b8052971c95e1b67f76e8e0c97888d586fff7d24d8b1e7b9f09913ac1a7eb",
+      "speaker_id": "spk-fr-FR-100",
+      "language": "fr-FR",
+      "split": "development",
+      "duration_seconds": 1.2,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-fr-FR-100/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/development-fr-FR-2",
+        "source_checksum": "sha256:906b8052971c95e1b67f76e8e0c97888d586fff7d24d8b1e7b9f09913ac1a7eb",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "development-de-DE-3",
+      "uri": "fixtures://multilingual-core/development-de-DE-3.wav",
+      "checksum": "sha256:a07b684d2fecef5dd0ffa5e1b021b98053b8a489983ad33fa3e1e92b26a4df40",
+      "speaker_id": "spk-de-DE-100",
+      "language": "de-DE",
+      "split": "development",
+      "duration_seconds": 1.3,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-de-DE-100/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/development-de-DE-3",
+        "source_checksum": "sha256:a07b684d2fecef5dd0ffa5e1b021b98053b8a489983ad33fa3e1e92b26a4df40",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "development-hi-IN-4",
+      "uri": "fixtures://multilingual-core/development-hi-IN-4.wav",
+      "checksum": "sha256:e9fe0c11ee1c219b2d80cb332e2d7f987aecd604499f94dde4ae74c151eeba4c",
+      "speaker_id": "spk-hi-IN-100",
+      "language": "hi-IN",
+      "split": "development",
+      "duration_seconds": 1.4,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-hi-IN-100/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/development-hi-IN-4",
+        "source_checksum": "sha256:e9fe0c11ee1c219b2d80cb332e2d7f987aecd604499f94dde4ae74c151eeba4c",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "development-ja-JP-5",
+      "uri": "fixtures://multilingual-core/development-ja-JP-5.wav",
+      "checksum": "sha256:6f91094d24451cea2e72d0bb7680340894c90e715f72cd0fd682182310d1d01d",
+      "speaker_id": "spk-ja-JP-100",
+      "language": "ja-JP",
+      "split": "development",
+      "duration_seconds": 1.5,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-ja-JP-100/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/development-ja-JP-5",
+        "source_checksum": "sha256:6f91094d24451cea2e72d0bb7680340894c90e715f72cd0fd682182310d1d01d",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    }
+  ],
+  "exclusion_log_checksum": "sha256:517304d7cfe08a575fba40a0050473f1a38fd9b516decae3c0ce08223bb864c1",
+  "checksum": "sha256:2756f4a4513892f772e031473cb60d3a7ced09c8fa2dc3a8d43aec7ff9fc4f91"
+}

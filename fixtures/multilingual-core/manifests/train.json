@@ -1,0 +1,183 @@
+{
+  "schema_version": "ripple-dataset-1",
+  "dataset_id": "multilingual-core-fixture",
+  "revision": "2026-07-14",
+  "records": [
+    {
+      "record_id": "train-en-US-0",
+      "uri": "fixtures://multilingual-core/train-en-US-0.wav",
+      "checksum": "sha256:5ff4fbaa31f8e9f6018380b7b83d2fcb9ccdf3b3d1cf38428f4ba01b7382544d",
+      "speaker_id": "spk-en-US-0",
+      "language": "en-US",
+      "split": "train",
+      "duration_seconds": 1.0,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-en-US-0/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/train-en-US-0",
+        "source_checksum": "sha256:5ff4fbaa31f8e9f6018380b7b83d2fcb9ccdf3b3d1cf38428f4ba01b7382544d",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "train-es-ES-1",
+      "uri": "fixtures://multilingual-core/train-es-ES-1.wav",
+      "checksum": "sha256:10d1395f8b8885850d288dd204cf9363c21ec2c23975ed0d02736c0e8af97bef",
+      "speaker_id": "spk-es-ES-0",
+      "language": "es-ES",
+      "split": "train",
+      "duration_seconds": 1.1,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-es-ES-0/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/train-es-ES-1",
+        "source_checksum": "sha256:10d1395f8b8885850d288dd204cf9363c21ec2c23975ed0d02736c0e8af97bef",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "train-fr-FR-2",
+      "uri": "fixtures://multilingual-core/train-fr-FR-2.wav",
+      "checksum": "sha256:daa754f1918d318b4bcb966f2d1456f5c10ac5bf92e5be45a667c413e49fbe21",
+      "speaker_id": "spk-fr-FR-0",
+      "language": "fr-FR",
+      "split": "train",
+      "duration_seconds": 1.2,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-fr-FR-0/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/train-fr-FR-2",
+        "source_checksum": "sha256:daa754f1918d318b4bcb966f2d1456f5c10ac5bf92e5be45a667c413e49fbe21",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "train-de-DE-3",
+      "uri": "fixtures://multilingual-core/train-de-DE-3.wav",
+      "checksum": "sha256:46aaa4a3e04afb6fe5ba626c693e318b089471fd639c23fd2176726bbaa0a28e",
+      "speaker_id": "spk-de-DE-0",
+      "language": "de-DE",
+      "split": "train",
+      "duration_seconds": 1.3,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-de-DE-0/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/train-de-DE-3",
+        "source_checksum": "sha256:46aaa4a3e04afb6fe5ba626c693e318b089471fd639c23fd2176726bbaa0a28e",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "train-hi-IN-4",
+      "uri": "fixtures://multilingual-core/train-hi-IN-4.wav",
+      "checksum": "sha256:88bd43e33a2e6312d3a161e7fddb16f6d3851741687b898a3d0bc96186a2483f",
+      "speaker_id": "spk-hi-IN-0",
+      "language": "hi-IN",
+      "split": "train",
+      "duration_seconds": 1.4,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-hi-IN-0/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/train-hi-IN-4",
+        "source_checksum": "sha256:88bd43e33a2e6312d3a161e7fddb16f6d3851741687b898a3d0bc96186a2483f",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    },
+    {
+      "record_id": "train-ja-JP-5",
+      "uri": "fixtures://multilingual-core/train-ja-JP-5.wav",
+      "checksum": "sha256:1e50042866221b98d0719224855a46fbf4b27045f1d69df45d7e0ba056b96683",
+      "speaker_id": "spk-ja-JP-0",
+      "language": "ja-JP",
+      "split": "train",
+      "duration_seconds": 1.5,
+      "sample_rate": 24000,
+      "channels": 1,
+      "license_id": "CC-BY-4.0",
+      "consent": {
+        "status": "granted",
+        "reference": "consent://spk-ja-JP-0/v1",
+        "commercial_use": true,
+        "revocable": true,
+        "checked_at": "2026-07-14T00:00:00Z"
+      },
+      "domain": "read",
+      "provenance": {
+        "source_uri": "https://example.test/fixture/train-ja-JP-5",
+        "source_checksum": "sha256:1e50042866221b98d0719224855a46fbf4b27045f1d69df45d7e0ba056b96683",
+        "created_at": "2026-07-14T00:00:00Z",
+        "producer": "fixture-generator",
+        "producer_version": "1",
+        "source_revision": null,
+        "license_id": "CC-BY-4.0"
+      }
+    }
+  ],
+  "exclusion_log_checksum": "sha256:517304d7cfe08a575fba40a0050473f1a38fd9b516decae3c0ce08223bb864c1",
+  "checksum": "sha256:eaf4c3b127c081c337bcbdf6d6658f738573f439c212f26015f48db7624df9e9"
+}

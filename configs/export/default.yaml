@@ -1,0 +1,5 @@
+backend: onnxruntime
+opset: 20
+fixed_batch_size: 1
+verify_streaming_equivalence: true
+

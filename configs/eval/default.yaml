@@ -1,0 +1,4 @@
+manifest_uri: fixtures/multilingual-core/manifests/test.json
+speaker_disjoint: true
+zero_lookahead_required: true
+long_session_seconds: 3600

@@ -1,0 +1,7 @@
+seed: 17
+deterministic_algorithms: true
+precision: bf16-mixed
+stage: semantic
+batch_size: 8
+learning_rate: 0.0002
+

@@ -1,0 +1,6 @@
+warmup_iterations: 50
+measured_iterations: 500
+deadline_ms: 20.0
+target_rtf: 0.5
+state_budget_bytes: 8388608
+

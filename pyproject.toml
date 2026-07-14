@@ -1,0 +1,137 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ripple-vc"
+version = "0.1.0"
+description = "Streaming speech-to-speech voice conversion model family with RIF-1 TTS extensibility."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { text = "Proprietary" }
+authors = [{ name = "Ripple contributors" }]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Typing :: Typed",
+]
+dependencies = [
+  "einops>=0.8,<1",
+  "numpy>=2.1,<3",
+  "pydantic>=2.10,<3",
+  "PyYAML>=6.0.2,<7",
+  "safetensors>=0.5,<1",
+  "soundfile>=0.13,<1",
+  "soxr>=0.5,<1",
+  "typer>=0.15,<1",
+]
+
+[project.optional-dependencies]
+torch = [
+  "torch>=2.6,<3",
+  "torchcodec>=0.3,<1",
+]
+data = [
+  "pyarrow>=17,<23",
+]
+export = [
+  "onnx>=1.17,<2",
+  "onnxruntime>=1.20,<2",
+]
+teachers = [
+  "transformers>=4.49,<6",
+]
+eval = [
+  "jiwer>=3.0,<5",
+]
+dev = [
+  "hypothesis>=6.120,<7",
+  "mypy>=1.14,<3",
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "ruff>=0.9,<1",
+  "types-PyYAML>=6.0.12,<7",
+]
+train = [
+  "torch>=2.6,<3",
+  "torchcodec>=0.3,<1",
+  "pyarrow>=17,<23",
+  "tensorboard>=2.18,<3",
+]
+all = [
+  "einops>=0.8,<1",
+  "hypothesis>=6.120,<7",
+  "jiwer>=3.0,<5",
+  "mypy>=1.14,<3",
+  "numpy>=2.1,<3",
+  "onnx>=1.17,<2",
+  "onnxruntime>=1.20,<2",
+  "pyarrow>=17,<23",
+  "pydantic>=2.10,<3",
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "PyYAML>=6.0.2,<7",
+  "ruff>=0.9,<1",
+  "safetensors>=0.5,<1",
+  "soundfile>=0.13,<1",
+  "soxr>=0.5,<1",
+  "tensorboard>=2.18,<3",
+  "torch>=2.6,<3",
+  "torchcodec>=0.3,<1",
+  "transformers>=4.49,<6",
+  "typer>=0.15,<1",
+  "types-PyYAML>=6.0.12,<7",
+]
+
+[project.scripts]
+ripple = "ripple.cli.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ripple"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/configs",
+  "/src",
+  "/tests",
+  "/README.md",
+  "/pyproject.toml",
+]
+
+[tool.pytest.ini_options]
+addopts = ["--strict-config", "--strict-markers", "-ra"]
+testpaths = ["tests"]
+xfail_strict = true
+
+[tool.coverage.run]
+branch = true
+source = ["ripple"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "C4", "SIM", "RUF"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["ripple"]
+mypy_path = "src"
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["soundfile", "torchcodec", "torchcodec.*"]
+ignore_missing_imports = true
+
