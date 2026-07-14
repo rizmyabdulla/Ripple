@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 import math
-from typing import Sequence
+from collections.abc import Sequence
 
 import torch
-from torch import Tensor
 import torch.nn.functional as F
+from torch import Tensor
 
 
 def signal_to_noise_ratio(reference: Tensor, estimate: Tensor, eps: float = 1e-8) -> float:
@@ -51,7 +51,10 @@ def boundary_discontinuity(chunks: Sequence[Tensor]) -> dict[str, float]:
     if len(chunks) < 2:
         return {"mean_jump": 0.0, "max_jump": 0.0}
     jumps = torch.stack(
-        [(chunks[index][..., -1] - chunks[index + 1][..., 0]).abs().float().mean() for index in range(len(chunks) - 1)]
+        [
+            (chunks[index][..., -1] - chunks[index + 1][..., 0]).abs().float().mean()
+            for index in range(len(chunks) - 1)
+        ]
     )
     return {"mean_jump": float(jumps.mean()), "max_jump": float(jumps.max())}
 

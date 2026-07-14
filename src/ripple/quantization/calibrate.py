@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Iterable, Sequence
 from dataclasses import asdict, dataclass
-from typing import Any, Callable, Iterable, Sequence
+from typing import Any
 
 import torch
 from torch import Tensor, nn

@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
 from contextlib import nullcontext
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable, Mapping
+from typing import Any
 
 import torch
 from torch import Tensor, nn
@@ -165,7 +166,11 @@ class Trainer:
             scaler=self.scaler,
             ema_state=self.ema.state_dict() if self.ema is not None else None,
             metadata=metadata,
-            extra={"global_step": self.global_step, "optimizer_step": self.optimizer_step, **dict(extra or {})},
+            extra={
+                "global_step": self.global_step,
+                "optimizer_step": self.optimizer_step,
+                **dict(extra or {}),
+            },
         )
 
 

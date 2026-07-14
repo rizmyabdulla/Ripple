@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping, Sequence
 from dataclasses import dataclass, fields, is_dataclass
-from typing import Any, Mapping, Sequence
+from typing import Any
 
 
 @dataclass(frozen=True)
@@ -29,7 +30,7 @@ class StateTensorSpec:
 @dataclass(frozen=True)
 class _TreeNode:
     kind: str
-    children: tuple["_TreeNode", ...] = ()
+    children: tuple[_TreeNode, ...] = ()
     keys: tuple[str, ...] = ()
     python_type: type[Any] | None = None
     leaf_index: int | None = None

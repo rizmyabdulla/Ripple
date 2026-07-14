@@ -2,7 +2,12 @@ from __future__ import annotations
 
 import torch
 
-from ripple.training.losses import MultiResolutionSTFTLoss, MultiScaleMelLoss, mel_filterbank, preemphasis
+from ripple.training.losses import (
+    MultiResolutionSTFTLoss,
+    MultiScaleMelLoss,
+    mel_filterbank,
+    preemphasis,
+)
 
 
 def test_spectral_losses_are_zeroish_for_identical_audio() -> None:

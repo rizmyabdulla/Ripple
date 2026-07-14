@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import itertools
+
 import torch
 
 from ripple.models.source_filter import HarmonicNoiseSource
@@ -21,7 +23,7 @@ def test_cached_causal_conv_matches_arbitrary_stream_grouping() -> None:
     state = convolution.initial_state(2)
     outputs = []
     offsets = (0, 1, 8, 13, 30, 48)
-    for start, end in zip(offsets, offsets[1:]):
+    for start, end in itertools.pairwise(offsets):
         chunk = x[..., start:end]
         output, state = convolution.step(chunk, state)
         outputs.append(output)

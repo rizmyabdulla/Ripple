@@ -15,7 +15,6 @@ from ripple.streaming.local_attention import (
     LocalAttentionState,
 )
 
-
 MixerMode = Literal["pure_conv", "local_attn"]
 
 
@@ -147,7 +146,7 @@ class RippleMixer(nn.Module):
         if len(state.blocks) != len(self.blocks):
             raise ValueError("mixer state block count does not match model")
         states: list[MixerBlockState] = []
-        for block, block_state in zip(self.blocks, state.blocks):
+        for block, block_state in zip(self.blocks, state.blocks, strict=False):
             x, block_state = block.step(x, block_state)
             states.append(block_state)
         return x, RippleMixerState(tuple(states))

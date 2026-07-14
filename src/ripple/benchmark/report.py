@@ -2,18 +2,18 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field, is_dataclass
-from datetime import datetime, timezone
 import json
 import math
 import os
-from pathlib import Path
 import platform
 import subprocess
-from typing import Any, Mapping
+from collections.abc import Mapping
+from dataclasses import asdict, dataclass, field, is_dataclass
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
 import torch
-
 
 REPORT_SCHEMA_VERSION = 1
 
@@ -68,7 +68,7 @@ class BenchmarkReport:
     resolved_config: Mapping[str, Any] = field(default_factory=dict)
     manifest_hashes: Mapping[str, str] = field(default_factory=dict)
     artifact_hash: str = ""
-    created_at_utc: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at_utc: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     schema_version: int = REPORT_SCHEMA_VERSION
     source_commit: str = field(default_factory=lambda: _git(["rev-parse", "HEAD"], "unknown"))
     dirty_tree: bool = field(default_factory=lambda: bool(_git(["status", "--porcelain"], "")))

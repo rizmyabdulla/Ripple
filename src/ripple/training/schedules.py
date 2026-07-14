@@ -31,7 +31,10 @@ class BoundedLossWeight:
     _ema: float | None = None
 
     def update(self, observed: float) -> float:
-        self._ema = observed if self._ema is None else self.momentum * self._ema + (1 - self.momentum) * observed
+        if self._ema is None:
+            self._ema = observed
+        else:
+            self._ema = self.momentum * self._ema + (1 - self.momentum) * observed
         if self._ema > 0:
             proposed = self.value * (self.target / self._ema) ** (1 - self.momentum)
             self.value = min(self.maximum, max(self.minimum, proposed))

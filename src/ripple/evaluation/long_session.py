@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
 import gc
 import os
 import time
-from typing import Any, Callable, Iterable
+from collections.abc import Callable, Iterable
+from dataclasses import asdict, dataclass
+from typing import Any
 
 import torch
 from torch import Tensor
@@ -124,7 +125,10 @@ def run_long_session(
     with torch.inference_mode():
         for index in range(config.iterations):
             chunk = source[index % len(source)]
-            if config.packet_loss_probability and torch.rand((), generator=generator).item() < config.packet_loss_probability:
+            drop = config.packet_loss_probability and (
+                torch.rand((), generator=generator).item() < config.packet_loss_probability
+            )
+            if drop:
                 chunk = torch.zeros_like(chunk)
                 dropped_packets += 1
             if config.reset_every and index and index % config.reset_every == 0:

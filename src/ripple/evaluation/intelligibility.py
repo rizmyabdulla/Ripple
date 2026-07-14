@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
-from typing import Callable, Sequence
+from collections.abc import Callable, Sequence
 
 
 def normalize_text(text: str) -> str:
@@ -29,7 +29,11 @@ def edit_distance(reference: Sequence[str], hypothesis: Sequence[str]) -> int:
     return previous[-1]
 
 
-def word_error_rate(reference: str, hypothesis: str, normalizer: Callable[[str], str] = normalize_text) -> float:
+def word_error_rate(
+    reference: str,
+    hypothesis: str,
+    normalizer: Callable[[str], str] = normalize_text,
+) -> float:
     reference_words = normalizer(reference).split()
     hypothesis_words = normalizer(hypothesis).split()
     if not reference_words:
@@ -37,7 +41,11 @@ def word_error_rate(reference: str, hypothesis: str, normalizer: Callable[[str],
     return edit_distance(reference_words, hypothesis_words) / len(reference_words)
 
 
-def character_error_rate(reference: str, hypothesis: str, normalizer: Callable[[str], str] = normalize_text) -> float:
+def character_error_rate(
+    reference: str,
+    hypothesis: str,
+    normalizer: Callable[[str], str] = normalize_text,
+) -> float:
     reference_chars = list(normalizer(reference).replace(" ", ""))
     hypothesis_chars = list(normalizer(hypothesis).replace(" ", ""))
     if not reference_chars:

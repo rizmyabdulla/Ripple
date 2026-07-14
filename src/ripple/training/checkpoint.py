@@ -2,19 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
 import hashlib
 import json
 import os
-from pathlib import Path
 import platform
 import subprocess
-from typing import Any, Mapping
+from collections.abc import Mapping
+from dataclasses import asdict, dataclass, field
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
 
 import torch
 from torch import nn
-
 
 CHECKPOINT_FORMAT_VERSION = 1
 
@@ -44,7 +44,7 @@ class CheckpointMetadata:
     source_commit: str = "unknown"
     dirty_tree: bool = False
     random_seed: int = 0
-    created_at_utc: str = field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_at_utc: str = field(default_factory=lambda: datetime.now(UTC).isoformat())
     torch_version: str = field(default_factory=lambda: torch.__version__)
     python_version: str = field(default_factory=platform.python_version)
     format_version: int = CHECKPOINT_FORMAT_VERSION
@@ -57,7 +57,7 @@ class CheckpointMetadata:
         step: int,
         resolved_config: Mapping[str, Any],
         **kwargs: Any,
-    ) -> "CheckpointMetadata":
+    ) -> CheckpointMetadata:
         commit = _git_value(["rev-parse", "HEAD"], "unknown")
         dirty = bool(_git_value(["status", "--porcelain"], ""))
         return cls(
@@ -110,7 +110,8 @@ def load_checkpoint(
     metadata = CheckpointMetadata(**payload["metadata"])
     if metadata.format_version != CHECKPOINT_FORMAT_VERSION:
         raise ValueError(
-            f"unsupported checkpoint format {metadata.format_version}; expected {CHECKPOINT_FORMAT_VERSION}"
+            f"unsupported checkpoint format {metadata.format_version}; "
+            f"expected {CHECKPOINT_FORMAT_VERSION}"
         )
     model.load_state_dict(payload["model"], strict=strict)
     if optimizer is not None and payload.get("optimizer") is not None:

@@ -18,7 +18,7 @@ class WelfordState:
     def variance(self) -> Tensor:
         return self.m2 / torch.clamp(self.count - 1.0, min=1.0)
 
-    def detach(self) -> "WelfordState":
+    def detach(self) -> WelfordState:
         return WelfordState(
             self.count.detach(), self.mean.detach(), self.m2.detach()
         )

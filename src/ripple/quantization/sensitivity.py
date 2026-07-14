@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Sequence
 from dataclasses import asdict, dataclass
-from typing import Callable, Sequence
 
 import torch
 from torch import Tensor, nn
@@ -58,7 +58,7 @@ def analyze_sensitivity(
             score = float(evaluate(model))
         finally:
             with torch.no_grad():
-                for parameter, original in zip(parameters, originals):
+                for parameter, original in zip(parameters, originals, strict=False):
                     parameter.copy_(original)
         degradation = baseline - score if higher_is_better else score - baseline
         results.append(

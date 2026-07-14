@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
 import math
 import statistics
 import time
-from typing import Any, Callable
+from collections.abc import Callable
+from dataclasses import asdict, dataclass
+from typing import Any
 
 import torch
 
@@ -101,7 +102,10 @@ def benchmark_latency(
     )
 
 
-def benchmark_cold_start(factory: Callable[[], Any], first_call: Callable[[Any], Any]) -> dict[str, float]:
+def benchmark_cold_start(
+    factory: Callable[[], Any],
+    first_call: Callable[[Any], Any],
+) -> dict[str, float]:
     started = time.perf_counter()
     backend = factory()
     _synchronize()

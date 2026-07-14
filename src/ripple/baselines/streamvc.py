@@ -34,7 +34,6 @@ from ripple.models.speaker_encoder import (
     SpeakerProfile,
 )
 
-
 YIN_THRESHOLD = 0.15
 
 

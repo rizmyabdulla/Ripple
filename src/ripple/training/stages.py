@@ -2,14 +2,14 @@
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, field
-from enum import Enum
-from typing import Mapping
+from enum import StrEnum
 
 from torch import nn
 
 
-class TrainingStage(str, Enum):
+class TrainingStage(StrEnum):
     SEMANTIC = "semantic_student"
     SPEAKER = "speaker_enrollment"
     RECONSTRUCTION = "decoder_reconstruction"
@@ -55,7 +55,13 @@ DEFAULT_STAGES: dict[TrainingStage, StageConfig] = {
     ),
     TrainingStage.ANY_TO_ANY: StageConfig(
         TrainingStage.ANY_TO_ANY,
-        {"stft": 1.0, "feature_matching": 10.0, "adversarial": 0.1, "speaker": 1.0, "source_rejection": 0.5},
+        {
+            "stft": 1.0,
+            "feature_matching": 10.0,
+            "adversarial": 0.1,
+            "speaker": 1.0,
+            "source_rejection": 0.5,
+        },
         adversarial=True,
     ),
     TrainingStage.STREAMING: StageConfig(
@@ -67,7 +73,14 @@ DEFAULT_STAGES: dict[TrainingStage, StageConfig] = {
         TrainingStage.QAT,
         {"stft": 1.0, "mel": 1.0, "speaker": 1.0, "state": 0.1},
         stateful=True,
-        metadata={"preserve_high_precision": ("norm", "oscillator", "waveform_projection", "prosody")},
+        metadata={
+            "preserve_high_precision": (
+                "norm",
+                "oscillator",
+                "waveform_projection",
+                "prosody",
+            )
+        },
     ),
 }
 

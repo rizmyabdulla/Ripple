@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 import copy
-from dataclasses import dataclass
-from typing import Any, Callable, Iterable
 import warnings
+from collections.abc import Callable, Iterable
+from dataclasses import dataclass
+from typing import Any
 
 import torch
 from torch import nn
@@ -34,7 +35,8 @@ class PTQResult:
 
 
 def available_backends() -> tuple[str, ...]:
-    return tuple(engine for engine in torch.backends.quantized.supported_engines if engine != "none")
+    engines = torch.backends.quantized.supported_engines
+    return tuple(engine for engine in engines if engine != "none")
 
 
 def _run(model: nn.Module, batch: Any) -> Any:
@@ -58,7 +60,10 @@ def quantize_ptq(
         raise ValueError("PTQ mode must be dynamic or static")
     copied = copy.deepcopy(model).cpu().eval()
     if config.backend not in available_backends():
-        message = f"quantization backend {config.backend!r} unavailable; available={available_backends()}"
+        available = available_backends()
+        message = (
+            f"quantization backend {config.backend!r} unavailable; available={available}"
+        )
         if config.strict_backend:
             raise QuantizationBackendUnavailable(message)
         return PTQResult(copied, config.mode, config.backend, False, (message,))
@@ -81,7 +86,11 @@ def quantize_ptq(
                     raise ValueError("static PTQ requires calibration_data")
                 copied.qconfig = torch.ao.quantization.get_default_qconfig(config.backend)
                 for name, module in copied.named_modules():
-                    if any(name == excluded or name.startswith(excluded + ".") for excluded in config.excluded_module_names):
+                    excluded = any(
+                        name == item or name.startswith(item + ".")
+                        for item in config.excluded_module_names
+                    )
+                    if excluded:
                         module.qconfig = None
                 prepared = torch.ao.quantization.prepare(copied, inplace=False)
                 with torch.inference_mode():

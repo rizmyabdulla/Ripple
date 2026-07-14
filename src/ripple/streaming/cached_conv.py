@@ -16,7 +16,7 @@ class Conv1dState:
     buffer: Tensor
     stride_phase: Tensor
 
-    def detach(self) -> "Conv1dState":
+    def detach(self) -> Conv1dState:
         return Conv1dState(self.buffer.detach(), self.stride_phase.detach())
 
 
@@ -103,10 +103,7 @@ class CachedCausalConv1d(nn.Conv1d):
             y = x.new_empty(x.shape[0], self.out_channels, 0)
         else:
             y = self._convolve(convolution_input)
-        if self.context_size:
-            new_buffer = joined[..., -self.context_size :]
-        else:
-            new_buffer = joined[..., :0]
+        new_buffer = joined[..., -self.context_size:] if self.context_size else joined[..., :0]
         next_phase = torch.tensor(
             (phase + x.shape[-1]) % stride,
             device=x.device,

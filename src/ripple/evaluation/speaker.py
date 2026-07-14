@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import torch
-from torch import Tensor
 import torch.nn.functional as F
+from torch import Tensor
 
 
 def cosine_similarity(embeddings: Tensor, references: Tensor) -> Tensor:

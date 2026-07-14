@@ -107,7 +107,7 @@ class CausalWaveformDecoder(nn.Module):
         stages: list[_UpsampleStage] = []
         in_channels = cfg.hidden_channels
         for scale, out_channels in zip(
-            cfg.upsample_scales, cfg.stage_channels
+            cfg.upsample_scales, cfg.stage_channels, strict=False
         ):
             stages.append(
                 _UpsampleStage(
@@ -225,7 +225,7 @@ class CausalWaveformDecoder(nn.Module):
         speaker = self._speaker_condition(profile)
         x = self.input_projection(torch.cat((semantic, prosody), dim=1))
         next_stages: list[Conv1dState] = []
-        for stage, stage_state in zip(self.stages, state.stages):
+        for stage, stage_state in zip(self.stages, state.stages, strict=False):
             x, stage_state = stage.step(x, speaker, stage_state)
             next_stages.append(stage_state)
         x, output_state = self.output.step(x, state.output)

@@ -39,7 +39,7 @@ class SpeakerProfile:
         if self.pitch_mean.shape != self.pitch_std.shape:
             raise ValueError("pitch profile shapes do not match")
 
-    def detach(self) -> "SpeakerProfile":
+    def detach(self) -> SpeakerProfile:
         return SpeakerProfile(
             self.speaker_global.detach(),
             self.speaker_tokens.detach(),

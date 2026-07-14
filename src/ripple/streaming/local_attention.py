@@ -15,7 +15,7 @@ class LocalAttentionState:
     value: Tensor
     length: Tensor
 
-    def detach(self) -> "LocalAttentionState":
+    def detach(self) -> LocalAttentionState:
         return LocalAttentionState(
             self.key.detach(), self.value.detach(), self.length.detach()
         )

@@ -27,7 +27,7 @@ def test_missing_sdk_has_actionable_optional_dependency_error(tmp_path) -> None:
     availability = backend.probe()
     if availability.available:
         pytest.skip("LiteRT SDK is installed in this environment")
-    with pytest.raises(OptionalDependencyError, match="LiteRT|litert"):
+    with pytest.raises(OptionalDependencyError, match=r"LiteRT|litert"):
         backend().export(object(), tmp_path / "model.tflite")
 
 

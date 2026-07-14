@@ -157,7 +157,7 @@ class SourceAnalysisEncoder(nn.Module):
         x, initial_state = self.initial.step(pcm, state.initial)
         x = torch.nn.functional.silu(x)
         next_stages: list[Conv1dState] = []
-        for stage, stage_state in zip(self.stages, state.stages):
+        for stage, stage_state in zip(self.stages, state.stages, strict=False):
             x, next_state = stage.step(x, stage_state)
             next_stages.append(next_state)
         return self._output(x), AnalysisEncoderState(

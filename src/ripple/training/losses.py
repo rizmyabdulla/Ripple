@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping, Sequence
 from dataclasses import dataclass
-from typing import Callable, Mapping, Sequence
 
 import torch
-from torch import Tensor, nn
 import torch.nn.functional as F
+from torch import Tensor, nn
 
 
 class _GradientReversal(torch.autograd.Function):
@@ -49,7 +49,11 @@ def semantic_kl_loss(
     return F.kl_div(student_log_prob, teacher_prob, reduction="batchmean") * temperature**2
 
 
-def semantic_ce_loss(student_logits: Tensor, hard_targets: Tensor, ignore_index: int = -100) -> Tensor:
+def semantic_ce_loss(
+    student_logits: Tensor,
+    hard_targets: Tensor,
+    ignore_index: int = -100,
+) -> Tensor:
     """Cross entropy accepting arbitrary leading time/batch dimensions."""
     return F.cross_entropy(
         student_logits.reshape(-1, student_logits.shape[-1]),
@@ -159,7 +163,11 @@ class MultiResolutionSTFTLoss(nn.Module):
 
     def __init__(
         self,
-        resolutions: Sequence[tuple[int, int, int]] = ((512, 120, 480), (1024, 240, 960), (256, 60, 240)),
+        resolutions: Sequence[tuple[int, int, int]] = (
+            (512, 120, 480),
+            (1024, 240, 960),
+            (256, 60, 240),
+        ),
         eps: float = 1e-7,
         complex_weight: float = 0.0,
     ) -> None:
@@ -173,10 +181,13 @@ class MultiResolutionSTFTLoss(nn.Module):
         for fft_size, hop_size, win_length in self.resolutions:
             pred_mag = _stft_magnitude(prediction, fft_size, hop_size, win_length)
             target_mag = _stft_magnitude(target, fft_size, hop_size, win_length)
-            convergence = torch.linalg.vector_norm(target_mag - pred_mag) / torch.linalg.vector_norm(
-                target_mag
-            ).clamp_min(self.eps)
-            log_magnitude = F.l1_loss(torch.log(pred_mag + self.eps), torch.log(target_mag + self.eps))
+            residual = torch.linalg.vector_norm(target_mag - pred_mag)
+            scale = torch.linalg.vector_norm(target_mag).clamp_min(self.eps)
+            convergence = residual / scale
+            log_magnitude = F.l1_loss(
+                torch.log(pred_mag + self.eps),
+                torch.log(target_mag + self.eps),
+            )
             total = total + convergence + log_magnitude
             if self.complex_weight:
                 total = total + self.complex_weight * F.l1_loss(pred_mag, target_mag)
@@ -218,8 +229,12 @@ def mel_filterbank(
         left, center, right = (int(item) for item in bins[index : index + 3])
         center = max(center, left + 1)
         right = max(right, center + 1)
-        filters[index, left:center] = torch.linspace(0, 1, center - left, device=device, dtype=dtype)
-        filters[index, center:right] = torch.linspace(1, 0, right - center, device=device, dtype=dtype)
+        filters[index, left:center] = torch.linspace(
+            0, 1, center - left, device=device, dtype=dtype
+        )
+        filters[index, center:right] = torch.linspace(
+            1, 0, right - center, device=device, dtype=dtype
+        )
     return filters
 
 
@@ -254,7 +269,10 @@ class MultiScaleMelLoss(nn.Module):
             )
             pred_mel = torch.einsum("mf,bft->bmt", bank, pred)
             target_mel = torch.einsum("mf,bft->bmt", bank, truth)
-            total = total + F.l1_loss(torch.log(pred_mel + self.eps), torch.log(target_mel + self.eps))
+            total = total + F.l1_loss(
+                torch.log(pred_mel + self.eps),
+                torch.log(target_mel + self.eps),
+            )
         return total / len(self.fft_sizes)
 
 
@@ -309,14 +327,22 @@ def packet_recovery_loss(
 
 def phase_continuity_loss(previous_phase: Tensor, current_phase: Tensor) -> Tensor:
     """Circular phase discontinuity in radians."""
-    difference = torch.atan2(torch.sin(current_phase - previous_phase), torch.cos(current_phase - previous_phase))
+    delta = current_phase - previous_phase
+    difference = torch.atan2(torch.sin(delta), torch.cos(delta))
     return difference.abs().mean()
 
 
-def discriminator_hinge_loss(real_scores: Sequence[Tensor], fake_scores: Sequence[Tensor]) -> Tensor:
+def discriminator_hinge_loss(
+    real_scores: Sequence[Tensor],
+    fake_scores: Sequence[Tensor],
+) -> Tensor:
     if len(real_scores) != len(fake_scores) or not real_scores:
         raise ValueError("real and fake score collections must be non-empty and aligned")
-    return sum((F.relu(1 - real).mean() + F.relu(1 + fake).mean()) for real, fake in zip(real_scores, fake_scores)) / len(real_scores)
+    terms = (
+        F.relu(1 - real).mean() + F.relu(1 + fake).mean()
+        for real, fake in zip(real_scores, fake_scores, strict=True)
+    )
+    return sum(terms) / len(real_scores)
 
 
 def generator_adversarial_loss(fake_scores: Sequence[Tensor]) -> Tensor:
@@ -331,8 +357,8 @@ def feature_matching_loss(
 ) -> Tensor:
     terms = [
         F.l1_loss(fake, real.detach())
-        for real_group, fake_group in zip(real_features, fake_features)
-        for real, fake in zip(real_group, fake_group)
+        for real_group, fake_group in zip(real_features, fake_features, strict=True)
+        for real, fake in zip(real_group, fake_group, strict=True)
     ]
     if not terms:
         raise ValueError("feature collections cannot be empty")

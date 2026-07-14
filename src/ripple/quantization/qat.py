@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import copy
-from dataclasses import dataclass
 import warnings
+from dataclasses import dataclass
 
 import torch
 from torch import nn
@@ -51,7 +51,10 @@ def prepare_qat(model: nn.Module, config: QATConfig | None = None) -> QATResult:
             excluded = any(
                 name == item or name.startswith(item + ".") for item in config.excluded_module_names
             )
-            sensitive = any(fragment.casefold() in name.casefold() for fragment in config.preserve_name_fragments)
+            sensitive = any(
+                fragment.casefold() in name.casefold()
+                for fragment in config.preserve_name_fragments
+            )
             if excluded or sensitive:
                 module.qconfig = None
         with warnings.catch_warnings(record=True) as captured:

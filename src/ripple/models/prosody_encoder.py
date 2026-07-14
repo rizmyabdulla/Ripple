@@ -125,7 +125,7 @@ class CausalProsodyEstimator(nn.Module):
     def _network(self, pcm: Tensor) -> Tensor:
         x = pcm
         for convolution, mixer, norm in zip(
-            self.convolutions, self.mixers, self.norms
+            self.convolutions, self.mixers, self.norms, strict=False
         ):
             x = torch.nn.functional.silu(mixer(norm(convolution(x))))
         return self.head(x)
@@ -138,7 +138,7 @@ class CausalProsodyEstimator(nn.Module):
         x = pcm
         next_states: list[Conv1dState] = []
         for convolution, mixer, norm, state in zip(
-            self.convolutions, self.mixers, self.norms, states
+            self.convolutions, self.mixers, self.norms, states, strict=False
         ):
             x, state = convolution.step(x, state)
             x = torch.nn.functional.silu(mixer(norm(x)))

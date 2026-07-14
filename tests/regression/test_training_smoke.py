@@ -56,7 +56,7 @@ def test_native_trainer_checkpoint_and_ema_smoke(tmp_path) -> None:
     )
     assert restored_metadata.step == 3
     assert payload["ema"] is not None
-    for expected, actual in zip(model.parameters(), restored.parameters()):
+    for expected, actual in zip(model.parameters(), restored.parameters(), strict=False):
         assert torch.equal(expected, actual)
 
 

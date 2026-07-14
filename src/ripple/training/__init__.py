@@ -12,9 +12,9 @@ from .stages import DEFAULT_STAGES, StageConfig, TrainingStage, get_stage_config
 from .trainer import AdversarialOptimizers, ExponentialMovingAverage, Trainer, TrainerConfig
 
 __all__ = [
+    "DEFAULT_STAGES",
     "AdversarialOptimizers",
     "CheckpointMetadata",
-    "DEFAULT_STAGES",
     "ExponentialMovingAverage",
     "LossComposer",
     "MultiResolutionSTFTLoss",

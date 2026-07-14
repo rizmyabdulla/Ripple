@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from .backends import OptionalDependencyError
 from .state import (
@@ -15,7 +16,6 @@ from .state import (
     unflatten_state,
     validate_flat_state,
 )
-
 
 StepFunction = Callable[[Any, Any, Any, Any | None], tuple[Any, Any]]
 
