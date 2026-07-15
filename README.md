@@ -217,6 +217,8 @@ raw WAVs → ripple data canonicalize → ripple manifest build → seal
 6. **Eval** — `ripple eval run --checkpoint ... --manifest test.json`; ASR WER needs the `eval` extra.
 7. **Export** — fixed-state ONNX + artifact bundle (`export/`, optional `runtime/`).
 
+**Modal (L4):** [`modal/README.md`](modal/README.md) — CPU `prep_libritts` (download → canonicalize → seal) then L4 `train` / resume. Fixtures are synthetic; Phase 0 data is LibriTTS (OpenSLR).
+
 Rough compute: English pilot listen-able checkpoint often **~2–4 weeks** on one A100/4090 including engineering; full 1000+ h multilingual STS is typically **months** on one GPU unless you multi-GPU.
 
 ## Documentation map
